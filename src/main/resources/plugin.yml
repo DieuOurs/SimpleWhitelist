@@ -4,5 +4,5 @@ version: 0.0.1
 main: fr.dieuours.SimpleWhiteList
 commands:
   simplewhitelist:
-    aliases: [swl]
+    aliases: [ swl ]
     description: A simple whitelist by DieuOurs

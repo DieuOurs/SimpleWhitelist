@@ -47,85 +47,86 @@ public class SimpleWhiteList extends JavaPlugin implements Listener {
         super.onEnable();
     }
 
-    private void initConfig(){
-        if(getConfig().get("messages")==null){
-            getConfig().set("messages.nopermission","§cYou don't have permission to send this command");
+    private void initConfig() {
+        if (getConfig().get("messages") == null) {
+            getConfig().set("messages.nopermission", "§cYou don't have permission to send this command");
             saveConfig();
         }
-        if(getConfig().get("whitelist")==null){
-            getConfig().set("whitelist","off");
+        if (getConfig().get("whitelist") == null) {
+            getConfig().set("whitelist", "off");
             saveConfig();
         }
-        if(getConfig().getString("whitelist").equalsIgnoreCase("off")){
+        if (getConfig().getString("whitelist").equalsIgnoreCase("off")) {
             whitelist = false;
-        }else{
+        } else {
             whitelist = true;
         }
 
-        if(getConfig().get("messages.nopermission")==null){
-            getConfig().set("nopermission","§cYou don't have permission to execute this command...");
+        if (getConfig().get("messages.nopermission") == null) {
+            getConfig().set("nopermission", "§cYou don't have permission to execute this command...");
             saveConfig();
         }
-        if(getConfig().get("messages.emptylist")==null){
-            getConfig().set("emptylist","§cEmpty list");
+        if (getConfig().get("messages.emptylist") == null) {
+            getConfig().set("emptylist", "§cEmpty list");
             saveConfig();
         }
-        if(getConfig().get("messages.newmember")==null){
-            getConfig().set("newmember","§aSuccess add member to whitelist");
+        if (getConfig().get("messages.newmember") == null) {
+            getConfig().set("newmember", "§aSuccess add member to whitelist");
             saveConfig();
         }
-        if(getConfig().get("messages.remmember")==null){
-            getConfig().set("remmember","§aSuccess remove member to whitelist");
+        if (getConfig().get("messages.remmember") == null) {
+            getConfig().set("remmember", "§aSuccess remove member to whitelist");
             saveConfig();
         }
-        if(getConfig().get("messages.unknownmember")==null){
-            getConfig().set("unknownmember","§cThis member is not on whitelist");
+        if (getConfig().get("messages.unknownmember") == null) {
+            getConfig().set("unknownmember", "§cThis member is not on whitelist");
             saveConfig();
         }
-        if(getConfig().get("messages.setonwl")==null){
-            getConfig().set("setonwl","§cWhitelist switch to on");
+        if (getConfig().get("messages.setonwl") == null) {
+            getConfig().set("setonwl", "§cWhitelist switch to on");
             saveConfig();
         }
-        if(getConfig().get("messages.setoffwl")==null){
-            getConfig().set("setoffwl","§cWhitelist switch to off");
-            saveConfig();
-        }
-
-        if(getConfig().get("messages.alreadyonwl")==null){
-            getConfig().set("alreadyonwl","§cWhitelist already of");
-            saveConfig();
-        }
-        if(getConfig().get("messages.alreadyoffwl")==null){
-            getConfig().set("alreadyoffwl","§cWhitelist already off");
+        if (getConfig().get("messages.setoffwl") == null) {
+            getConfig().set("setoffwl", "§cWhitelist switch to off");
             saveConfig();
         }
 
-        if(getConfig().get("messages.serverwhitelist")==null){
-            getConfig().set("serverwhitelist","§cThis server is on WhiteList...");
+        if (getConfig().get("messages.alreadyonwl") == null) {
+            getConfig().set("alreadyonwl", "§cWhitelist already of");
             saveConfig();
         }
-        if(getConfig().get("messages.unknownarg")==null){
-            getConfig().set("unknownarg","§cUnknow argument");
+        if (getConfig().get("messages.alreadyoffwl") == null) {
+            getConfig().set("alreadyoffwl", "§cWhitelist already off");
+            saveConfig();
+        }
+
+        if (getConfig().get("messages.serverwhitelist") == null) {
+            getConfig().set("serverwhitelist", "§cThis server is on WhiteList...");
+            saveConfig();
+        }
+        if (getConfig().get("messages.unknownarg") == null) {
+            getConfig().set("unknownarg", "§cUnknow argument");
             saveConfig();
         }
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
-        if(cmd.getName().equalsIgnoreCase("simplewhitelist")||cmd.getName().equalsIgnoreCase("swl")){
-            if(sender instanceof Player) {
+        if (cmd.getName().equalsIgnoreCase("simplewhitelist") || cmd.getName().equalsIgnoreCase("swl")) {
+            if (sender instanceof Player) {
                 Player p = (Player) sender;
                 if (p.isOp()) {
                     commandSet(sender, cmd, msg, args);
-                }else{
+                } else {
                     p.sendMessage(fileConfiguration.getString("messages.nopermission"));
                 }
-            }else{
+            } else {
                 commandSet(sender, cmd, msg, args);
             }
         }
         return false;
     }
+
     private void commandSet(CommandSender sender, Command cmd, String msg, String[] args) {
         fileConfiguration = getConfig();
         if (args.length == 0) {
@@ -142,22 +143,22 @@ public class SimpleWhiteList extends JavaPlugin implements Listener {
                 } else {
                     sender.sendMessage("§8" + fileConfiguration.getString("list"));
                 }
-            }else if(args[0].equalsIgnoreCase("on")) {
-                if(!whitelist){
+            } else if (args[0].equalsIgnoreCase("on")) {
+                if (!whitelist) {
                     whitelist = true;
-                    getConfig().set("whitelist","on");
+                    getConfig().set("whitelist", "on");
                     saveConfig();
                     sender.sendMessage(fileConfiguration.getString("messages.setonwl"));
-                }else{
+                } else {
                     sender.sendMessage(fileConfiguration.getString("messages.alreadyonwl"));
                 }
-            }else if(args[0].equalsIgnoreCase("off")){
-                if(whitelist){
+            } else if (args[0].equalsIgnoreCase("off")) {
+                if (whitelist) {
                     whitelist = false;
-                    getConfig().set("whitelist","off");
+                    getConfig().set("whitelist", "off");
                     saveConfig();
                     sender.sendMessage(fileConfiguration.getString("messages.setoffwl"));
-                }else{
+                } else {
                     sender.sendMessage(fileConfiguration.getString("messages.alreadyoffwl"));
                 }
             } else {
@@ -193,9 +194,10 @@ public class SimpleWhiteList extends JavaPlugin implements Listener {
     }
 
     @EventHandler(priority = HIGHEST)
-    public void onJoin(PlayerJoinEvent e){
-        if(!whitelist) return;
+    public void onJoin(PlayerJoinEvent e) {
+        if (!whitelist) return;
         fileConfiguration = getConfig();
-        if(!fileConfiguration.getStringList("list").contains(e.getPlayer().getName())) e.getPlayer().kickPlayer(fileConfiguration.getString("messages.serverwhitelist"));
+        if (!fileConfiguration.getStringList("list").contains(e.getPlayer().getName()))
+            e.getPlayer().kickPlayer(fileConfiguration.getString("messages.serverwhitelist"));
     }
 }
