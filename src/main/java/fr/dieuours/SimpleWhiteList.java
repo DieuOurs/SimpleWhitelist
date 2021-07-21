@@ -40,8 +40,9 @@ public class SimpleWhiteList extends JavaPlugin implements Listener {
         getCommand("simplewhitelist").setExecutor(this);
 
         getConfig().options().copyDefaults(false);
-        initConfig();
         saveConfig();
+        initConfig();
+
 
         sender.sendMessage("SimpleWhiteList is enable");
         super.onEnable();
